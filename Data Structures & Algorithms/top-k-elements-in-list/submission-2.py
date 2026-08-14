@@ -1,0 +1,18 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        mp = {}
+
+        for i in nums:
+            mp[i] = mp.get(i, 0) + 1
+        
+        bucket = [[] for i in range(len(nums))]
+
+        for n, c in mp.items():
+            bucket[c - 1].append(n)
+        
+        output = []
+        for i in range(len(bucket) - 1, -1, -1):
+            for num in bucket[i]:
+                output.append(num)
+                if len(output) == k:
+                    return output
